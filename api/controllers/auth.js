@@ -24,13 +24,19 @@ export const login = async (req, res, next) => {
         const user = await User.findOne({username: req.body.username});
         if (!user) return next(createError(404, "User not found!"));
 
-        const isPasswordCorrect = await bcrypt.compare(req.body.password, user.password);
+        const isPasswordCorrect = await bcrypt.compare(
+            req.body.password, 
+            user.password
+        );
+        
         if (!isPasswordCorrect) 
             return next(createError(400, "Worng Password or username!!!"));
 
             const {password, isAdmin ,...otherDetails} = user._doc;
 
-        res.status(200).json({...otherDetails});
+        res
+            .status(200)
+            .json({details: {...otherDetails}, isAdmin});
     }catch (err){
         next(err);
     }
