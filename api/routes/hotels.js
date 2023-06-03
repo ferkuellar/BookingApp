@@ -6,7 +6,6 @@ import {
     getHotels,
     updateHotel,
     countByCity,
-
 } from "../controllers/hotel.js";
 import Hotel from "../models/Hotel.js";
 import {verifyAdmin} from "../utils/verifyToken.js";
